@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Probe.c3.wasm</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        width: 100vw;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Inspired by github.com/tsoding/koil */
+      @media (min-aspect-ratio: 16/9) {
+        canvas#cnv {
+          position: absolute;
+          height: calc(100% - 60px);
+          left: 50%;
+          top: 60px;
+          transform: translate(-50%, 0%)
+        }
+      }
+      @media not (min-aspect-ratio: 16/9) {
+        canvas#cnv {
+          position: absolute;
+          width: 100%;
+          top: 60px;
+          left: 0;
+        }
+      }
+    </style>
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body>
+    <h1 style="padding-top: 1rem;">C3 Wasm Probe</h1>
+    <canvas width="800" height="600" id="cnv"></canvas>
+  </body>
+</html>
