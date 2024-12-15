@@ -98,8 +98,9 @@ fn void Command.print_output(&self) {
   self.print_stdout();
 }
 
+const String WASM_OUTPATH = "./build/stuff";
+
 fn bool build_wasm() {
-  String outpath = "./build/stuff";
   Command cmd = {};
   defer cmd.parts.free();
   cmd.new_init("c3c")
@@ -109,7 +110,7 @@ fn bool build_wasm() {
     .args("--target", "wasm32")
     .args("-O5", "-g0", "--link-libc=no", "--no-entry")
     .arg("--trust=full")
-    .args("-o", outpath)
+    .args("-o", WASM_OUTPATH)
     .args("-z", "--export-table")
     .arg("c3-src/main.c3")
     .arg("c3-src/ext.c3");
@@ -124,14 +125,14 @@ fn bool build_wasm() {
     io::eprintn("[ERROR] Failed to build wasm");
     return false;
   }
-  io::printfn("[INFO] Built wasm: %s.wasm", outpath);
+  io::printfn("[INFO] Built wasm: %s.wasm", WASM_OUTPATH);
   return true;
 }
 
 fn bool build_mainjs() {
   Command cmd = {};
   defer cmd.parts.free();
-  cmd.new_init("tsc").arg("tsc");
+  cmd.new_init("bunx").arg("tsc");
 
   CInt! code = cmd.run_sync();
   if (catch excuse = code) {
