@@ -13,6 +13,7 @@
     // "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": false,
+    "outDir": "pages",
 
     // Best practices
     "strict": true,
