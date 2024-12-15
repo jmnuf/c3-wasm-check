@@ -98,22 +98,22 @@ fn void Command.print_output(&self) {
   self.print_stdout();
 }
 
-const String WASM_OUTPATH = "./build/stuff";
+const String WASM_OUTPATH = "./pages/build/stuff";
 
 fn bool build_wasm() {
   Command cmd = {};
   defer cmd.parts.free();
   cmd.new_init("c3c")
-    .arg("compile")
-    .args("-D", "PLATFORM_WEB")
-    .arg("--reloc=none")
-    .args("--target", "wasm32")
-    .args("-O5", "-g0", "--link-libc=no", "--no-entry")
-    .arg("--trust=full")
-    .args("-o", WASM_OUTPATH)
-    .args("-z", "--export-table")
-    .arg("c3-src/main.c3")
-    .arg("c3-src/ext.c3");
+    .arg  ("compile")
+    .args ("-D", "PLATFORM_WEB")
+    .arg  ("--reloc=none")
+    .args ("--target", "wasm32")
+    .args ("-O5", "-g0", "--link-libc=no", "--no-entry")
+    .arg  ("--trust=full")
+    .args ("-o", WASM_OUTPATH)
+    .args ("-z", "--export-table")
+    .arg  ("c3-src/main.c3")
+    .arg  ("c3-src/ext.c3");
 
   CInt! code = cmd.run_sync();
   if (catch excuse = code) {
@@ -132,7 +132,9 @@ fn bool build_wasm() {
 fn bool build_mainjs() {
   Command cmd = {};
   defer cmd.parts.free();
-  cmd.new_init("bunx").arg("tsc");
+  cmd.new_init("bunx")
+    .arg  ("tsc")
+    .args ("--outDir", "./pages");
 
   CInt! code = cmd.run_sync();
   if (catch excuse = code) {
